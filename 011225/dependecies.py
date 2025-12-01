@@ -33,26 +33,35 @@ def ex3a():
     t = torch.rand(5, 5)
     print(t)
 
-    # not working as expected, for some reason.
-    mean = t[0, 0].item()
+    mean = 0
+    n = 0
 
-    for i in range(1, t.size(dim = 1)):
-        for j in range(0, t.size(dim = 1)):
-            mean = (mean + t[i, j].item()) / 2
+    variance = 0
 
+    for i in range(t.size(dim = 0)):
+        for j in range(t.size(dim = 1)):
+            n += 1
+            mean += t[i, j].item()
 
-    standardDeviation1 = (t[0, 0].item() - mean) * (t[0, 0].item() - mean) 
-    print(standardDeviation1)
+    mean /= n
     print(mean)
-    
+
+    for i in range(t.size(dim = 0)):
+        for j in range(t.size(dim = 1)):
+            variance += (t[i, j].item() - mean) * (t[i, j].item() - mean)     
+
+    #bessel correction applied! 
+    variance /= n - 1 
+
+    print(torch.var(t))
+    print(variance)
+
+
 def ex3():
     t = torch.rand(5, 5)
     print(t)
 
     mean = float(torch.mean(t)) 
-
-
-    #std = torch.std(t)
 
     item = t[0, 0].item() 
     itemDeviation = (item - mean) * (item - mean)
