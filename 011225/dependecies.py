@@ -56,6 +56,8 @@ def ex3a():
     print(torch.var(t))
     print(variance)
 
+    print(torch.std(t))
+    print(numpy.sqrt(variance))
 
 def ex3():
     t = torch.rand(5, 5)
